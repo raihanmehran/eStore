@@ -2,3 +2,6 @@ API/bin/*
 API/obj/*
 .vscode/*
 API/appsettings.json
+API/eStore.db
+API/eStore.db-shm
+API/eStore.db-wal
