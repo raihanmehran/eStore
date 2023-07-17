@@ -1,8 +1,5 @@
 import {
-  ListItem,
-  ListItemAvatar,
   Avatar,
-  ListItemText,
   Card,
   CardMedia,
   Typography,
@@ -22,7 +19,7 @@ export default function ProductCard({ product }: Props) {
     <Card>
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: "black" }}>
+          <Avatar sx={{ bgcolor: "black", color: "whitesmoke" }}>
             {product.name.charAt(0).toUpperCase()}
           </Avatar>
         }
@@ -49,10 +46,14 @@ export default function ProductCard({ product }: Props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button variant="contained" sx={{ background: "black" }} size="small">
+        <Button
+          variant="contained"
+          sx={{ bgcolor: "black", color: "white" }}
+          size="small"
+        >
           Add To Cart
         </Button>
-        <Button sx={{ color: "black" }} size="small">
+        <Button color="inherit" size="small">
           View
         </Button>
       </CardActions>
