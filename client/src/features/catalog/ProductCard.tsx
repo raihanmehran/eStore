@@ -1,4 +1,16 @@
-import { ListItem, ListItemAvatar, Avatar, ListItemText } from "@mui/material";
+import {
+  ListItem,
+  ListItemAvatar,
+  Avatar,
+  ListItemText,
+  Card,
+  CardMedia,
+  Typography,
+  CardContent,
+  CardActions,
+  Button,
+  CardHeader,
+} from "@mui/material";
 import { Product } from "../../app/models/product";
 
 interface Props {
@@ -7,13 +19,43 @@ interface Props {
 
 export default function ProductCard({ product }: Props) {
   return (
-    <ListItem>
-      <ListItemAvatar>
-        <Avatar src={product.pictureUrl}></Avatar>
-      </ListItemAvatar>
-      <ListItemText>
-        {product.name} - {product.price} - {product.brand}
-      </ListItemText>
-    </ListItem>
+    <Card>
+      <CardHeader
+        avatar={
+          <Avatar sx={{ bgcolor: "black" }}>
+            {product.name.charAt(0).toUpperCase()}
+          </Avatar>
+        }
+        title={product.name}
+        titleTypographyProps={{
+          sx: { fontWeight: "bold", color: "primary.main" },
+        }}
+      />
+      <CardMedia
+        sx={{
+          height: 140,
+          backgroundSize: "contain",
+          bgcolor: "lightgoldenrodyellow",
+        }}
+        image={product.pictureUrl}
+        title={product.name}
+      />
+      <CardContent>
+        <Typography gutterBottom color="secondary" variant="h5">
+          ${(product.price / 100).toFixed(2)}
+        </Typography>
+        <Typography gutterBottom>
+          {product.brand} | {product.type}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button variant="contained" sx={{ background: "black" }} size="small">
+          Add To Cart
+        </Button>
+        <Button sx={{ color: "black" }} size="small">
+          View
+        </Button>
+      </CardActions>
+    </Card>
   );
 }
