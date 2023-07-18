@@ -11,35 +11,47 @@ export default function AboutPage() {
         <Button
           variant="contained"
           color="warning"
-          onClick={() => agent.TestErrors.get400Error()}
+          onClick={() =>
+            agent.TestErrors.get400Error().catch((error) => console.log(error))
+          }
         >
           Test 400 Error
         </Button>
         <Button
           variant="contained"
           color="warning"
-          onClick={() => agent.TestErrors.get401Error()}
+          onClick={() =>
+            agent.TestErrors.get401Error().catch((error) => console.log(error))
+          }
         >
           Test 401 Error
         </Button>
         <Button
           variant="contained"
           color="warning"
-          onClick={() => agent.TestErrors.get404Error()}
+          onClick={() =>
+            agent.TestErrors.get404Error().catch((error) => console.log(error))
+          }
         >
           Test 404 Error
         </Button>
         <Button
           variant="contained"
           color="warning"
-          onClick={() => agent.TestErrors.get500Error()}
+          onClick={() =>
+            agent.TestErrors.get500Error().catch((error) => console.log(error))
+          }
         >
           Test 500 Error
         </Button>
         <Button
           variant="contained"
           color="warning"
-          onClick={() => agent.TestErrors.getValidationErro()}
+          onClick={() =>
+            agent.TestErrors.getValidationErro().catch((error) =>
+              console.log(error)
+            )
+          }
         >
           Test Validation Error
         </Button>
