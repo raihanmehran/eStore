@@ -9,6 +9,7 @@ import {
   CardHeader,
 } from "@mui/material";
 import { Product } from "../../app/models/product";
+import { Link } from "react-router-dom";
 
 interface Props {
   product: Product;
@@ -53,7 +54,12 @@ export default function ProductCard({ product }: Props) {
         >
           Add To Cart
         </Button>
-        <Button color="inherit" size="small">
+        <Button
+          color="inherit"
+          size="small"
+          component={Link}
+          to={`/catalog/${product.id}`}
+        >
           View
         </Button>
       </CardActions>
