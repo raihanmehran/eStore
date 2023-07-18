@@ -8,7 +8,6 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Product } from "../../app/models/product";
@@ -23,7 +22,7 @@ export default function ProductDetails() {
     id &&
       agent.Catalog.details(parseInt(id))
         .then((response) => setProduct(response))
-        .catch((error) => console.log(error))
+        .catch((error) => console.log(error.response))
         .finally(() => setLoading(false));
   }, [id]);
 
