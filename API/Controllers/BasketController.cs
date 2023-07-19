@@ -39,7 +39,7 @@ namespace API.Controllers
 
             var result = await _context.SaveChangesAsync() > 0;
 
-            if (result) return StatusCode(201);
+            if (result) return CreatedAtRoute("GetBasket", MapBasketToDto(basket: basket));
 
             return BadRequest(new ProblemDetails { Title = "Problem saving item to basket" });
         }
@@ -55,7 +55,7 @@ namespace API.Controllers
 
             var result = await _context.SaveChangesAsync() > 0;
 
-            if (result) return CreatedAtRoute("GetBasket", MapBasketToDto(basket: basket));
+            if (result) return Ok();
 
             return BadRequest(new ProblemDetails { Title = "Problem removing item from basket" });
         }
