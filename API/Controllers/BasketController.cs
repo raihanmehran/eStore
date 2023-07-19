@@ -1,4 +1,5 @@
 using API.Data;
+using API.DTOs;
 using API.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,14 +15,13 @@ namespace API.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public async ValueTask<ActionResult<Basket>> GetBasket()
+        [HttpGet(Name = "GetBasket")]
+        public async ValueTask<ActionResult<BasketDto>> GetBasket()
         {
             Basket basket = await RetrieveBasket();
 
             if (basket == null) return NotFound(basket);
-
-            return basket;
+            return MapBasketToDto(basket: basket);
         }
 
         [HttpPost]
@@ -45,9 +45,19 @@ namespace API.Controllers
         }
 
         [HttpDelete]
-        public async ValueTask<ActionResult> RemoveItemFromBasket(int productId, int quantity)
+        public async ValueTask<ActionResult<BasketDto>> RemoveItemFromBasket(int productId, int quantity)
         {
-            return StatusCode(0);
+            var basket = await RetrieveBasket();
+
+            if (basket == null) return NotFound();
+
+            basket.RemoveItem(productId: productId, quantity: quantity);
+
+            var result = await _context.SaveChangesAsync() > 0;
+
+            if (result) return CreatedAtRoute("GetBasket", MapBasketToDto(basket: basket));
+
+            return BadRequest(new ProblemDetails { Title = "Problem removing item from basket" });
         }
 
         private async ValueTask<Basket> RetrieveBasket()
@@ -66,6 +76,24 @@ namespace API.Controllers
             _context.Baskets.Add(basket);
 
             return basket;
+        }
+        private static BasketDto MapBasketToDto(Basket basket)
+        {
+            return new BasketDto
+            {
+                Id = basket.Id,
+                BuyerId = basket.BuyerId,
+                Items = basket.Items.Select(item => new BasketItemDto
+                {
+                    ProductId = item.ProductId,
+                    Name = item.Product.Name,
+                    Price = item.Product.Price,
+                    PictureUrl = item.Product.PictureUrl,
+                    Type = item.Product.Type,
+                    Brand = item.Product.Brand,
+                    Quantity = item.Quantity
+                }).ToList()
+            };
         }
     }
 }
