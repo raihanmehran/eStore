@@ -5,7 +5,7 @@ import { router } from "../router/Routes";
 axios.defaults.baseURL = "http://localhost:5240/api/";
 axios.defaults.withCredentials = true;
 
-const sleep = () => new Promise((resolve) => setTimeout(resolve, 200));
+const sleep = () => new Promise((resolve) => setTimeout(resolve, 400));
 
 const responseBody = (response: AxiosResponse) => response.data;
 
