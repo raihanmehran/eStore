@@ -2,6 +2,7 @@ import { useState } from "react";
 import agent from "../../app/api/agent";
 import {
   Box,
+  Button,
   Grid,
   Paper,
   Table,
@@ -17,6 +18,7 @@ import { useStoreContext } from "../../app/context/StoreContext";
 import { LoadingButton } from "@mui/lab";
 import BasketSummary from "./BasketSummary";
 import { currencyFormat } from "../../app/util/util";
+import { Link } from "react-router-dom";
 
 export default function BasketPage() {
   //   const [loading, setLoading] = useState(true);
@@ -53,6 +55,8 @@ export default function BasketPage() {
       .finally(() => setStatus({ loading: false, name: "" }));
   }
 
+  function viewProduct(productId: number) {}
+
   if (!basket) return <Typography variant="h3">The basket is empty</Typography>;
 
   return (
@@ -80,7 +84,10 @@ export default function BasketPage() {
                       alt={item.name}
                       style={{ height: 50, marginRight: 20 }}
                     />
-                    <span>{item.name}</span>
+                    {/* <span >{item.name}</span> */}
+                    <Button component={Link} to={`/catalog/${item.productId}`}>
+                      {item.name}
+                    </Button>
                   </Box>
                 </TableCell>
                 <TableCell align="right">
@@ -146,6 +153,16 @@ export default function BasketPage() {
         <Grid item xs={6} />
         <Grid item xs={6}>
           <BasketSummary />
+          <Button
+            component={Link}
+            to="/checkout"
+            variant="contained"
+            size="large"
+            fullWidth
+            sx={{ bgcolor: "black", color: "whitesmoke", mt: 1 }}
+          >
+            Checkout
+          </Button>
         </Grid>
       </Grid>
     </>
