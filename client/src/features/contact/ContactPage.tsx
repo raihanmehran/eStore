@@ -1,9 +1,9 @@
 import { Button, ButtonGroup, Typography } from "@mui/material";
-import { useAppDispath, useAppSelector } from "../../app/store/configureStore";
+import { useAppDispatch, useAppSelector } from "../../app/store/configureStore";
 import { decrement, increment } from "./counterSlice";
 
 export default function ContactPage() {
-  const dispatch = useAppDispath();
+  const dispatch = useAppDispatch();
   const { data, title } = useAppSelector((state) => state.counter);
 
   return (

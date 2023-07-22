@@ -55,8 +55,6 @@ export default function BasketPage() {
       .finally(() => setStatus({ loading: false, name: "" }));
   }
 
-  function viewProduct(productId: number) {}
-
   if (!basket) return <Typography variant="h3">The basket is empty</Typography>;
 
   return (
