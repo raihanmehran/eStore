@@ -11,9 +11,6 @@ import { RouterProvider } from "react-router-dom";
 import { router } from "./app/router/Routes";
 import { Provider } from "react-redux";
 import { store } from "./app/store/configureStore";
-import { fetchProductAsAsync } from "./features/catalog/catalogSlice";
-
-store.dispatch(fetchProductAsAsync());
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

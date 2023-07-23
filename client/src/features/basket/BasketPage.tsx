@@ -1,5 +1,3 @@
-import { useState } from "react";
-import agent from "../../app/api/agent";
 import {
   Box,
   Button,
@@ -19,11 +17,7 @@ import BasketSummary from "./BasketSummary";
 import { currencyFormat } from "../../app/util/util";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/store/configureStore";
-import {
-  addBasketItemAsync,
-  removeBasketItemAsync,
-  setBasket,
-} from "./basketSlice";
+import { addBasketItemAsync, removeBasketItemAsync } from "./basketSlice";
 
 export default function BasketPage() {
   //   const [loading, setLoading] = useState(true);
