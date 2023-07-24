@@ -1,5 +1,6 @@
 using API.Data;
 using API.Entities;
+using API.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,9 +16,20 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async ValueTask<ActionResult<List<Product>>> GetProducts()
+        public async ValueTask<ActionResult<List<Product>>> GetProducts(
+            string orderBy,
+            string searchTerm,
+            string brands,
+            string types
+        )
         {
-            var products = await _context.Products.ToListAsync();
+            var query = _context.Products
+                .Sort(orderBy: orderBy)
+                .Search(searchTerm: searchTerm)
+                .Filter(brands: brands, types: types)
+                .AsQueryable();
+
+            var products = await query.ToListAsync();
 
             return Ok(products);
         }
