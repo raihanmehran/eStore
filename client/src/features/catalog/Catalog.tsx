@@ -17,10 +17,10 @@ import {
   Paper,
   Radio,
   RadioGroup,
-  TextField,
   Typography,
 } from "@mui/material";
 import { CheckBox } from "@mui/icons-material";
+import ProductSearch from "./ProductSearch";
 
 const sortOptions = [
   { value: "name", label: "Alphabetical" },
@@ -48,7 +48,7 @@ export default function Catalog() {
     <Grid container spacing={4}>
       <Grid item xs={3}>
         <Paper sx={{ mb: 2 }}>
-          <TextField label="Search products" variant="outlined" fullWidth />
+          <ProductSearch />
         </Paper>
         <Paper sx={{ mb: 2, p: 2 }}>
           <FormControl>
