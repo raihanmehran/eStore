@@ -19,6 +19,7 @@ export const fetchProductsAsync = createAsyncThunk<Product[]>(
     }
   }
 );
+
 export const fetchProductAsync = createAsyncThunk<Product, number>(
   "catalog/fetchProductAsync",
   async (productId, thunkApi) => {
@@ -30,10 +31,24 @@ export const fetchProductAsync = createAsyncThunk<Product, number>(
   }
 );
 
+export const fetchProductFiltersAsync = createAsyncThunk(
+  "catalog/fetchFilters",
+  async (_, thunkApi) => {
+    try {
+      return agent.Catalog.fetchFilters();
+    } catch (error: any) {
+      return thunkApi.rejectWithValue({ error: error.data });
+    }
+  }
+);
+
 export const catalogSlice = createSlice({
   name: "catalog",
   initialState: productsAdapter.getInitialState({
     productsLoaded: false,
+    filtersLoaded: false,
+    brands: [],
+    types: [],
     status: "idle",
   }),
   reducers: {},
@@ -58,6 +73,19 @@ export const catalogSlice = createSlice({
       state.status = "idle";
     });
     builder.addCase(fetchProductAsync.rejected, (state, action) => {
+      console.log(action.payload);
+      state.status = "idle";
+    });
+    builder.addCase(fetchProductFiltersAsync.pending, (state) => {
+      state.status = "pendingFetchProductFilters";
+    });
+    builder.addCase(fetchProductFiltersAsync.fulfilled, (state, action) => {
+      state.brands = action.payload.brands;
+      state.types = action.payload.types;
+      state.filtersLoaded = true;
+      state.status = "idle";
+    });
+    builder.addCase(fetchProductFiltersAsync.rejected, (state, action) => {
       console.log(action.payload);
       state.status = "idle";
     });
