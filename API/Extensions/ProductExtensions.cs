@@ -39,7 +39,7 @@ namespace API.Extensions
 
             if (!string.IsNullOrEmpty(types))
             {
-                typeList.AddRange(types.Split(",").ToList());
+                typeList.AddRange(types.ToLower().Split(",").ToList());
             }
 
             query = query.Where(p =>
